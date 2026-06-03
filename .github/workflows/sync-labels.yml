@@ -1,0 +1,27 @@
+name: Sync labels
+on:
+  workflow_dispatch: {}
+
+  # For testing only
+  pull_request: {}
+
+  # Uncomment for automatic updates on push
+  # push:
+  #     branches:
+  #         - livekit
+  #     paths:
+  #         - .github/labels.yml
+
+permissions: {} # We use ELEMENT_BOT_TOKEN instead
+
+jobs:
+  sync-labels:
+    uses: element-hq/element-meta/.github/workflows/sync-labels.yml@7f2f93fb9b52ece7a0998f60e64862aa203c1746
+    with:
+      LABELS: |
+        .github/labels.yml
+      DELETE: true
+      # Change to true to actually write labels
+      WET: false
+    secrets:
+      ELEMENT_BOT_TOKEN: ${{ secrets.ELEMENT_BOT_TOKEN }}
